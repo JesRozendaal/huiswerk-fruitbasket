@@ -2,6 +2,10 @@ h2 {
     display: inline-block;
 }
 
-.types-of-fruit {
-    border: 2px solid black;
+label {
+    display: block;
 }
+
+
+
+
