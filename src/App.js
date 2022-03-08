@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Fruit from "./components/Fruit";
+import Logo from './assets/screenshot-logo.png';
 import './App.css';
 
 // Stappenplan
@@ -22,17 +23,30 @@ import './App.css';
 // 17.
 
 function App() {
-    const [numberOfStrawberries, setNumberOfStrawberries] = React.useState(0);
-    const [numberOfBananas, setNumberOfBananas] = React.useState(0);
-    const [numberOfApples, setNumberOfApples] = React.useState(0);
-    const [numberOfKiwis, setNumberOfKiwis] = React.useState(0);
+    const [numberOfStrawberries, setNumberOfStrawberries] = useState(0);
+    const [numberOfBananas, setNumberOfBananas] = useState(0);
+    const [numberOfApples, setNumberOfApples] = useState(0);
+    const [numberOfKiwis, setNumberOfKiwis] = useState(0);
+
+    const [formFirstName, setFormFirstName] = useState('');
+    const [formLastName, setFormLastName] = useState('');
+    const [formAge, setFormAge] = useState(0);
+    const [formZipcode, setFormZipcode] = useState('');
+    const [formCommentField, setFormCommentField] = useState('');
+    const [checkedTerms, toggleCheckedTerms] = useState(false);
 
   return (
     <>
-            <h1>Fruitmand bezorgservice</h1>
+        <header>
+            <img src={Logo}
+                 alt="Je mag toch niet naar buiten"
+                 />
+        </header>
+
+        <h1>Maak uw keuze:</h1>
         <Fruit
             fruitName="&#127827; Aardbeien"
-            onClick1={() => {setNumberOfStrawberries(numberOfStrawberries - 1)}}
+            onClick1={() => {setNumberOfStrawberries(numberOfStrawberries -1)}}
             number={numberOfStrawberries}
             onClick2={() => {setNumberOfStrawberries(numberOfStrawberries + 1)}}
         />
@@ -56,41 +70,60 @@ function App() {
         />
         <button
             type="button"
-            onClick={() => {setNumberOfStrawberries(0); setNumberOfBananas(0); setNumberOfApples(0);setNumberOfKiwis(0)}}>
+            onClick={() => {setNumberOfStrawberries(0); setNumberOfBananas(0); setNumberOfApples(0);setNumberOfKiwis(0)}}
+        >
             Reset
         </button>
 
+        <h1>Vul uw gegevens in:</h1>
         <form className="delivery-form">
         <label htmlFor="first-name-field">
             Voornaam
             <input
                 id="first-name-field"
+                name="first-name"
                 type="text"
+                value={formFirstName}
+                onChange={(e) => setFormFirstName(e.target.value)}
             />
         </label>
+
             <label htmlFor="last-name-field">
                 Achternaam
                 <input
                     id="last-name-field"
+                    name="last-name"
                     type="text"
+                    value={formLastName}
+                    onChange={(e) => setFormLastName(e.target.value)}
                     />
             </label>
+
             <label htmlFor="age-field">
                 Leeftijd
                 <input
                     id="age-field"
+                    name="age"
                     type="text"
+                    value={formAge}
+                    onChange={(e) => setFormAge(e.target.value)}
                     />
             </label>
+
             <label htmlFor="zipcode-field">
                 Postcode
                 <input
                     id="zipcode-field"
+                    name="zipcode"
                     type="text"
+                    value={formZipcode}
+                    onChange={(e) => setFormZipcode(e.target.value)}
                     />
             </label>
+
+            <label htmlFor="delivery-option">
             Bezorgfrequentie
-            <select>
+            <select id="delivery-option">
                 <option>
                     Iedere week
                 </option>
@@ -101,25 +134,53 @@ function App() {
                     Iedere maand
                 </option>
             </select>
+            </label>
 
+            <label htmlFor="day-radio">
             <input
-                type="radio"/>
-            Overdag
+                id="day-radio"
+                type="radio"
+                value="day-delivery"
+                name="delivery"
+            />
+                Overdag
+            </label>
+            <label htmlFor="night-radio">
             <input
-                type="radio"/>
+                id="night-radio"
+                type="radio"
+                value="night-delivery"
+                name="delivery"
+            />
             's Avonds
+            </label>
 
+            <label htmlFor="form-comments">
             Opmerking
-            <input
-                type="text"
-                />
+                <textarea
+                    id="form-comments"
+                    rows="4"
+                    cols="30"
+                    value={formCommentField}
+                    onChange={(e) => setFormCommentField(e.target.value)}
+                    />
+            </label>
 
+            <label htmlFor="conditions-checkbox">
             <input
-                type="checkbox"/>
+                type="checkbox"
+                checked={checkedTerms}
+                onChange={() => toggleCheckedTerms(!checkedTerms)}
+            />
             Ik ga akkoord met de voorwaarden
+            </label>
 
             <button
-                type="button">
+                type="button"
+                disabled={!checkedTerms}
+                onClick={() => console.log(numberOfStrawberries, numberOfBananas, numberOfApples, numberOfKiwis,
+                                           formFirstName, formLastName, formAge, formZipcode, formCommentField)}
+            >
                 Verzend
             </button>
         </form>
