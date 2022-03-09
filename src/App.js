@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
-import Fruit from "./components/Fruit";
-import Logo from './assets/screenshot-logo.png';
 import './App.css';
+import Logo from './assets/screenshot-logo.png';
+import Fruit from './components/Fruit';
+import FormInput from "./components/FormInput";
+import RadioButtons from "./components/RadioButtons";
+import Button from "./components/Button";
+
 
 // Stappenplan
 // 1. Maak voor één fruitsoort een div aan met daarin het plaatje, de naam, 2 buttons en het aantal gekozen fruit.
@@ -16,11 +20,14 @@ import './App.css';
 // 10. Voeg een checkbox toe voor de voorwaarden in het formulier.
 // 11. Maak een verzend button om het formulier te verzenden.
 // 12. Zorg ervoor dat alle waardes uit het formulier gelogd worden als je op verzenden drukt.
+// Opdracht 2
 // 13. Ga componenten maken!
 // 14. Maak een component aan voor de 4 soorten fruit.
 // 15. Vervang de code van de div voor het component en kijk of het werkt.
 // 16. Schrijf ook de code voor de andere soorten fruit.
-// 17.
+// Opdracht 3
+// 17. Maak componenten voor de verschillende herhalende onderdelen, zoals de input velden en de radio buttons.
+// 18. Voeg eventueel styling toe!
 
 function App() {
     const [numberOfStrawberries, setNumberOfStrawberries] = useState(0);
@@ -32,135 +39,126 @@ function App() {
     const [formLastName, setFormLastName] = useState('');
     const [formAge, setFormAge] = useState(0);
     const [formZipcode, setFormZipcode] = useState('');
+    const [formDeliveryRadio, setFormDeliveryRadio] = useState('');
+    //const [formSelectField, setFormSelectField] = useState('');
     const [formCommentField, setFormCommentField] = useState('');
     const [checkedTerms, toggleCheckedTerms] = useState(false);
 
-  return (
+
+     return (
     <>
         <header>
             <img src={Logo}
                  alt="Je mag toch niet naar buiten"
                  />
         </header>
-
+<main>
         <h1>Maak uw keuze:</h1>
         <Fruit
             fruitName="&#127827; Aardbeien"
-            onClick1={() => {setNumberOfStrawberries(numberOfStrawberries -1)}}
+            clickHandler1={() => {setNumberOfStrawberries(numberOfStrawberries -1)}}
             number={numberOfStrawberries}
-            onClick2={() => {setNumberOfStrawberries(numberOfStrawberries + 1)}}
+            clickHandler2={() => {setNumberOfStrawberries(numberOfStrawberries + 1)}}
         />
         <Fruit
             fruitName="&#127820; Bananen"
-            onClick1={() => {setNumberOfBananas(numberOfBananas - 1)}}
+            clickHandler1={() => {setNumberOfBananas(numberOfBananas - 1)}}
             number={numberOfBananas}
-            onClick2={() => {setNumberOfBananas(numberOfBananas + 1)}}
+            clickHandler2={() => {setNumberOfBananas(numberOfBananas + 1)}}
         />
         <Fruit
             fruitName="&#127823; Appels"
-            onClick1={() => {setNumberOfApples(numberOfApples - 1)}}
+            clickHandler1={() => {setNumberOfApples(numberOfApples - 1)}}
             number={numberOfApples}
-            onClick2={() => {setNumberOfApples(numberOfApples +1)}}
+            clickHandler2={() => {setNumberOfApples(numberOfApples + 1)}}
         />
         <Fruit
             fruitName="&#129373; Kiwi's"
-            onClick1={() => setNumberOfKiwis(numberOfKiwis - 1)}
+            clickHandler1={() => setNumberOfKiwis(numberOfKiwis - 1)}
             number={numberOfKiwis}
-            onClick2={() => setNumberOfKiwis(numberOfKiwis + 1)}
+            clickHandler2={() => setNumberOfKiwis(numberOfKiwis + 1)}
         />
-        <button
-            type="button"
-            onClick={() => {setNumberOfStrawberries(0); setNumberOfBananas(0); setNumberOfApples(0);setNumberOfKiwis(0)}}
-        >
-            Reset
-        </button>
+        <Button
+            text="Reset"
+            disabled={false}
+            clickHandler={() => {setNumberOfStrawberries(0); setNumberOfBananas(0); setNumberOfApples(0);setNumberOfKiwis(0)}}
+            />
 
         <h1>Vul uw gegevens in:</h1>
         <form className="delivery-form">
-        <label htmlFor="first-name-field">
-            Voornaam
-            <input
-                id="first-name-field"
+            <FormInput
+                fieldName="Voornaam"
+                idName="first-name-field"
                 name="first-name"
-                type="text"
                 value={formFirstName}
-                onChange={(e) => setFormFirstName(e.target.value)}
+                changeHandler={(e) => setFormFirstName(e.target.value)}
             />
-        </label>
-
-            <label htmlFor="last-name-field">
-                Achternaam
-                <input
-                    id="last-name-field"
-                    name="last-name"
-                    type="text"
-                    value={formLastName}
-                    onChange={(e) => setFormLastName(e.target.value)}
-                    />
-            </label>
-
-            <label htmlFor="age-field">
-                Leeftijd
-                <input
-                    id="age-field"
-                    name="age"
-                    type="text"
-                    value={formAge}
-                    onChange={(e) => setFormAge(e.target.value)}
-                    />
-            </label>
-
-            <label htmlFor="zipcode-field">
-                Postcode
-                <input
-                    id="zipcode-field"
-                    name="zipcode"
-                    type="text"
-                    value={formZipcode}
-                    onChange={(e) => setFormZipcode(e.target.value)}
-                    />
-            </label>
+            <FormInput
+                fieldName="Achternaam"
+                idName="last-name-field"
+                name="last-name"
+                value={formLastName}
+                changeHandler={(e) => setFormLastName(e.target.value)}
+            />
+            <FormInput
+                fieldName="Leeftijd"
+                idName="age-field"
+                name="age"
+                value={formAge}
+                changeHandler={(e) => setFormAge(e.target.value)}
+            />
+            <FormInput
+                fieldName="Postcode"
+                idName="zipcode-field"
+                name="zipcode"
+                value={formZipcode}
+                changeHandler={(e) => setFormZipcode(e.target.value)}
+            />
 
             <label htmlFor="delivery-option">
-            Bezorgfrequentie
-            <select id="delivery-option">
-                <option>
-                    Iedere week
-                </option>
-                <option>
-                    Om de week
-                </option>
-                <option>
-                    Iedere maand
-                </option>
-            </select>
+                Bezorgfrequentie
+                <select id="delivery-option">
+                    <option
+                        value="every-week"
+                    >
+                        Iedere week
+                    </option>
+                    <option
+                        value="every-other-week"
+                    >
+                        Om de week
+                    </option>
+                    <option
+                        value="every-month"
+                    >
+                        Iedere maand
+                    </option>
+                </select>
             </label>
 
-            <label htmlFor="day-radio">
-            <input
-                id="day-radio"
-                type="radio"
+            <RadioButtons
+                idName="day-radio"
+                name="delivery"
                 value="day-delivery"
+                check={formDeliveryRadio === "day-delivery"}
+                changeHandler={(e) => setFormDeliveryRadio(e.target.value)}
+                text="Overdag"
+                />
+            <RadioButtons
+                idName="night-radio"
                 name="delivery"
-            />
-                Overdag
-            </label>
-            <label htmlFor="night-radio">
-            <input
-                id="night-radio"
-                type="radio"
                 value="night-delivery"
-                name="delivery"
+                check={formDeliveryRadio === "night-delivery"}
+                changeHandler={(e) => setFormDeliveryRadio(e.target.value)}
+                text="'s Avonds"
             />
-            's Avonds
-            </label>
 
             <label htmlFor="form-comments">
             Opmerking
                 <textarea
                     id="form-comments"
                     rows="4"
-                    cols="30"
+                    cols="35"
                     value={formCommentField}
                     onChange={(e) => setFormCommentField(e.target.value)}
                     />
@@ -175,15 +173,14 @@ function App() {
             Ik ga akkoord met de voorwaarden
             </label>
 
-            <button
-                type="button"
+            <Button
+                text="Verzend"
                 disabled={!checkedTerms}
-                onClick={() => console.log(numberOfStrawberries, numberOfBananas, numberOfApples, numberOfKiwis,
-                                           formFirstName, formLastName, formAge, formZipcode, formCommentField)}
-            >
-                Verzend
-            </button>
-        </form>
+                clickHandler={() => console.log(numberOfStrawberries, numberOfBananas, numberOfApples, numberOfKiwis,
+                                                formFirstName, formLastName, formAge, formZipcode, formDeliveryRadio, formCommentField, checkedTerms)}
+                />
+            </form>
+</main>
     </>
   );
 }
