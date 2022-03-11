@@ -40,7 +40,7 @@ function App() {
     const [formAge, setFormAge] = useState(0);
     const [formZipcode, setFormZipcode] = useState('');
     const [formDeliveryRadio, setFormDeliveryRadio] = useState('');
-    //const [formSelectField, setFormSelectField] = useState('');
+    const [formSelectField, toggleFormSelectField] = useState('');
     const [formCommentField, setFormCommentField] = useState('');
     const [checkedTerms, toggleCheckedTerms] = useState(false);
 
@@ -117,7 +117,11 @@ function App() {
 
             <label htmlFor="delivery-option">
                 Bezorgfrequentie
-                <select id="delivery-option">
+                <select
+                    id="delivery-option"
+                    name="delivery-frequency"
+                    value={formSelectField}
+                    onChange={(e) => toggleFormSelectField(e.target.value)}>
                     <option
                         value="every-week"
                     >
@@ -177,7 +181,7 @@ function App() {
                 text="Verzend"
                 disabled={!checkedTerms}
                 clickHandler={() => console.log(numberOfStrawberries, numberOfBananas, numberOfApples, numberOfKiwis,
-                                                formFirstName, formLastName, formAge, formZipcode, formDeliveryRadio, formCommentField, checkedTerms)}
+                                                formFirstName, formLastName, formAge, formZipcode, formSelectField, formDeliveryRadio, formCommentField, checkedTerms)}
                 />
             </form>
 </main>
