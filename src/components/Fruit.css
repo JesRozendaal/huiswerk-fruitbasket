@@ -1,0 +1,11 @@
+.types-of-fruit {
+    border: 2px solid seagreen;
+    border-radius: 60px;
+    width: 300px;
+    text-align: center;
+    margin: 10px;
+}
+
+button {
+    margin: 10px;
+}
